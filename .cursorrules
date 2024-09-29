@@ -1,0 +1,174 @@
+The goal is to review each file and document in detail everything
+
+# Files
+
+app/api/chat/route.ts
+app/api/chat-o1/route.ts
+app/api/sandbox/route.ts
+app/favicon.ico
+app/globals.css
+app/layout.tsx
+app/page.tsx
+app/providers.tsx
+app/xterm.css
+components/ui/alert.tsx
+components/ui/button.tsx
+components/ui/card.tsx
+components/ui/dialog.tsx
+components/ui/dropdown-menu.tsx
+components/ui/input.tsx
+components/ui/label.tsx
+components/ui/select.tsx
+components/ui/separator.tsx
+components/ui/skeleton.tsx
+components/ui/tabs.tsx
+components/AuthDialog.tsx
+components/AuthForm.tsx
+components/Spinner.tsx
+components/Terminal.tsx
+components/artifact-view.tsx
+components/chat.tsx
+components/code-theme.css
+components/code-view.tsx
+components/navbar.tsx
+components/side-view.tsx
+components/useSandbox.ts
+components/useTerminal.ts
+lib/auth.ts
+lib/messages.ts
+lib/models.json
+lib/models.ts
+lib/ratelimit.ts
+lib/schema.ts
+lib/supabase.ts
+lib/templates.json
+lib/templates.ts
+lib/types.ts
+lib/utils.ts
+public/thirdparty/logos/anthropic.svg
+public/thirdparty/logos/fireworks.svg
+public/thirdparty/logos/fireworksai.svg
+public/thirdparty/logos/google.svg
+public/thirdparty/logos/groq.svg
+public/thirdparty/logos/mistral.svg
+public/thirdparty/logos/ollama.svg
+public/thirdparty/logos/openai.svg
+public/thirdparty/logos/togetherai.svg
+public/thirdparty/templates/code-interpreter-multilang.svg
+public/thirdparty/templates/gradio-developer.svg
+public/thirdparty/templates/nextjs-developer.svg
+public/thirdparty/templates/streamlit-developer.svg
+public/thirdparty/templates/vue-developer.svg
+public/logo.svg
+public/next.svg
+public/vercel.svg
+sandbox-templates/gradio-developer/app.py
+sandbox-templates/gradio-developer/e2b.Dockerfile
+sandbox-templates/gradio-developer/e2b.toml
+sandbox-templates/nextjs-developer/app.tsx
+sandbox-templates/nextjs-developer/compile_page.sh
+sandbox-templates/nextjs-developer/e2b.Dockerfile
+sandbox-templates/nextjs-developer/e2b.toml
+sandbox-templates/streamlit-developer/app.py
+sandbox-templates/streamlit-developer/e2b.Dockerfile
+sandbox-templates/streamlit-developer/e2b.toml
+sandbox-templates/vue-developer/e2b.Dockerfile
+sandbox-templates/vue-developer/e2b.toml
+sandbox-templates/vue-developer/nuxt.config.ts
+
+
+
+app
+ ┣ api
+ ┃ ┣ chat
+ ┃ ┃ ┗ route.ts
+ ┃ ┣ chat-o1
+ ┃ ┃ ┗ route.ts
+ ┃ ┗ sandbox
+ ┃ ┃ ┗ route.ts
+ ┣ favicon.ico
+ ┣ globals.css
+ ┣ layout.tsx
+ ┣ page.tsx
+ ┣ providers.tsx
+ ┗ xterm.css
+
+ components
+ ┣ ui
+ ┃ ┣ alert.tsx
+ ┃ ┣ button.tsx
+ ┃ ┣ card.tsx
+ ┃ ┣ dialog.tsx
+ ┃ ┣ dropdown-menu.tsx
+ ┃ ┣ input.tsx
+ ┃ ┣ label.tsx
+ ┃ ┣ select.tsx
+ ┃ ┣ separator.tsx
+ ┃ ┣ skeleton.tsx
+ ┃ ┗ tabs.tsx
+ ┣ AuthDialog.tsx
+ ┣ AuthForm.tsx
+ ┣ Spinner.tsx
+ ┣ Terminal.tsx
+ ┣ artifact-view.tsx
+ ┣ chat.tsx
+ ┣ code-theme.css
+ ┣ code-view.tsx
+ ┣ navbar.tsx
+ ┣ side-view.tsx
+ ┣ useSandbox.ts
+ ┗ useTerminal.ts
+
+ lib
+ ┣ auth.ts
+ ┣ messages.ts
+ ┣ models.json
+ ┣ models.ts
+ ┣ ratelimit.ts
+ ┣ schema.ts
+ ┣ supabase.ts
+ ┣ templates.json
+ ┣ templates.ts
+ ┣ types.ts
+ ┗ utils.ts
+
+ public
+ ┣ thirdparty
+ ┃ ┣ logos
+ ┃ ┃ ┣ anthropic.svg
+ ┃ ┃ ┣ fireworks.svg
+ ┃ ┃ ┣ fireworksai.svg
+ ┃ ┃ ┣ google.svg
+ ┃ ┃ ┣ groq.svg
+ ┃ ┃ ┣ mistral.svg
+ ┃ ┃ ┣ ollama.svg
+ ┃ ┃ ┣ openai.svg
+ ┃ ┃ ┗ togetherai.svg
+ ┃ ┗ templates
+ ┃ ┃ ┣ code-interpreter-multilang.svg
+ ┃ ┃ ┣ gradio-developer.svg
+ ┃ ┃ ┣ nextjs-developer.svg
+ ┃ ┃ ┣ streamlit-developer.svg
+ ┃ ┃ ┗ vue-developer.svg
+ ┣ logo.svg
+ ┣ next.svg
+ ┗ vercel.svg
+
+ sandbox-templates
+ ┣ gradio-developer
+ ┃ ┣ app.py
+ ┃ ┣ e2b.Dockerfile
+ ┃ ┗ e2b.toml
+ ┣ nextjs-developer
+ ┃ ┣ _app.tsx
+ ┃ ┣ compile_page.sh
+ ┃ ┣ e2b.Dockerfile
+ ┃ ┗ e2b.toml
+ ┣ streamlit-developer
+ ┃ ┣ app.py
+ ┃ ┣ e2b.Dockerfile
+ ┃ ┗ e2b.toml
+ ┗ vue-developer
+ ┃ ┣ e2b.Dockerfile
+ ┃ ┣ e2b.toml
+ ┃ ┗ nuxt.config.ts
