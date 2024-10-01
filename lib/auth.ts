@@ -35,61 +35,58 @@ export async function getUserAPIKey (session: Session) {
 }
 
 export function useAuth (setAuthDialog: (value: boolean) => void, setAuthView: (value: AuthViewType) => void) {
-  const [session, setSession] = useState<Session | null>(null)
-  const [apiKey, setApiKey] = useState<string | undefined>(undefined)
-  const posthog = usePostHog()
-  let recovery = false
+  const [session, setSession] = useState<Session | null>(null);
+  const [apiKey, setApiKey] = useState<string | undefined>(undefined);
+  const posthog = usePostHog();
+  let recovery = false;
 
   useEffect(() => {
     if (!supabase) {
-      console.warn('Supabase is not initialized')
-      return setSession({ user: { email: 'demo@e2b.dev' } } as Session)
+      console.warn('Supabase is not initialized');
+      return setSession({ user: { email: 'demo@e2b.dev' } } as Session);
     }
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
+      setSession(session);
       if (session) {
-        getUserAPIKey(session).then(setApiKey)
-        posthog.identify(session?.user.id, { email: session?.user.email })
-        posthog.capture('sign_in')
+        getUserAPIKey(session).then(setApiKey);
+        posthog.identify(session?.user.id, { email: session?.user.email });
+        posthog.capture('sign_in');
       }
-    })
+    });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
+      setSession(session);
 
       if (_event === 'PASSWORD_RECOVERY') {
-        recovery = true
-        setAuthView('update_password')
-        setAuthDialog(true)
+        recovery = true;
+        setAuthView('update_password');
+        setAuthDialog(true);
       }
 
       if (_event === 'USER_UPDATED' && recovery) {
-        recovery = false
+        recovery = false;
       }
 
       if (_event === 'SIGNED_IN' && !recovery) {
-        setAuthDialog(false)
-        getUserAPIKey(session as Session).then(setApiKey)
-        posthog.identify(session?.user.id, { email: session?.user.email })
-        posthog.capture('sign_in')
+        setAuthDialog(false);
+        getUserAPIKey(session as Session).then(setApiKey);
+        posthog.identify(session?.user.id, { email: session?.user.email });
+        posthog.capture('sign_in');
       }
 
       if (_event === 'SIGNED_OUT') {
-        setApiKey(undefined)
-        setAuthView('sign_in')
-        posthog.capture('sign_out')
-        posthog.reset()
+        setApiKey(undefined);
+        setAuthView('sign_in');
+        posthog.capture('sign_out');
+        posthog.reset();
       }
-    })
+    });
 
-    return () => subscription.unsubscribe()
-  }, [])
+    return () => subscription.unsubscribe();
+  }, []);
 
-  return {
-    session,
-    apiKey
-  }
+  return { session, apiKey, setSession };
 }

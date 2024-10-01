@@ -38,7 +38,7 @@ export default function Home() {
   const [isPreviewLoading, setIsPreviewLoading] = useState(false)
   const [isAuthDialogOpen, setAuthDialog] = useState(false)
   const [authView, setAuthView] = useState<AuthViewType>('sign_in')
-  const { session, apiKey } = useAuth(setAuthDialog, setAuthView)
+  const { session, apiKey, setSession } = useAuth(setAuthDialog, setAuthView)
 
   const currentModel = modelsList.models.find(model => model.id === languageModel.model)
   const currentTemplate = selectedTemplate === 'auto' ? templates : { [selectedTemplate]: templates[selectedTemplate] }
@@ -73,6 +73,49 @@ export default function Home() {
       }
     }
   })
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const authOrigin = params.get('arcgis-auth-origin');
+    const authToken = params.get('arcgis-auth-token');
+
+    if (authOrigin && authToken) {
+      authenticateWithToken(authToken);
+
+      window.addEventListener('message', (event) => {
+        if (event.origin !== authOrigin) {
+          console.error('Received message from untrusted origin');
+          return;
+        }
+
+        if (event.data.type === 'AUTH_RESPONSE') {
+          authenticateWithToken(event.data.token);
+        }
+      });
+    }
+  }, []);
+
+  function authenticateWithToken(token: string) {
+    // Implement your authentication logic here
+    // This might involve setting up your Supabase client with the provided token
+    if (supabase) {
+      supabase.auth.setSession({ access_token: token, refresh_token: '' })
+        .then(({ data, error }) => {
+          if (error) {
+            console.error('Error setting session:', error);
+          } else {
+            setSession(data.session);
+          }
+        });
+    }
+  }
+
+  function requestFreshToken() {
+    const authOrigin = new URLSearchParams(window.location.search).get('arcgis-auth-origin');
+    if (authOrigin) {
+      window.parent.postMessage({ type: 'AUTH_REQUEST' }, authOrigin);
+    }
+  }
 
   useEffect(() => {
     if (object) {

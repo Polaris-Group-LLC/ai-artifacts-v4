@@ -1,5 +1,4 @@
-The goal is to review each file and document in detail everything
-
+This app is part of the neucleos Collective ingenuity innovation platform.   The app is rendered as a microfrontend and is imported via iframe.  We are working to pass the auth token and leverage the supabase auth system to sign the host user into the iframe.
 # Files
 
 app/api/chat/route.ts
