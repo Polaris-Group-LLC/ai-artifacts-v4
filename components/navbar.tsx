@@ -58,17 +58,8 @@ export default function NavBar({
   return (
     <nav className="fixed top-0 left-0 right-0 bg-background">
       <div className="flex px-4 py-2">
-        <div className="flex flex-1 items-center">
-          <Link href="/" className="flex items-center gap-2" target="_blank">
-            <Image src="/logo.svg" alt="logo" width={30} height={30} />
-            <h1 className="whitespace-pre">AI Artifacts by </h1>
-          </Link>
-          <Link href="https://e2b.dev" className="underline decoration-[#ff8800] decoration-2 text-[#ff8800]" target="_blank">E2B</Link>
-        </div>
+        
         <div className="flex justify-end space-x-4">
-          <Button variant="outline" onClick={onGitHubClick}>
-            <GithubIcon className="mr-2 h-4 w-4" /> Star us on GitHub
-          </Button>
           <Separator orientation="vertical" />
           {session ? (
             <div className="flex items-center">
