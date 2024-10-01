@@ -79,41 +79,56 @@ export default function Home() {
     const authOrigin = params.get('arcgis-auth-origin');
     const authToken = params.get('arcgis-auth-token');
 
+    console.log('Auth params:', { authOrigin, authToken });
+
     if (authOrigin && authToken) {
+      console.log('Attempting to authenticate with token');
       authenticateWithToken(authToken);
 
       window.addEventListener('message', (event) => {
+        console.log('Received message:', event);
         if (event.origin !== authOrigin) {
-          console.error('Received message from untrusted origin');
+          console.error('Received message from untrusted origin:', event.origin);
           return;
         }
 
         if (event.data.type === 'AUTH_RESPONSE') {
+          console.log('Received AUTH_RESPONSE, authenticating with new token');
           authenticateWithToken(event.data.token);
         }
       });
+
+      console.log('Event listener for AUTH_RESPONSE set up');
+    } else {
+      console.log('No auth params found in URL');
     }
   }, []);
 
   function authenticateWithToken(token: string) {
-    // Implement your authentication logic here
-    // This might involve setting up your Supabase client with the provided token
+    console.log('Authenticating with token:', token);
     if (supabase) {
       supabase.auth.setSession({ access_token: token, refresh_token: '' })
         .then(({ data, error }) => {
           if (error) {
             console.error('Error setting session:', error);
           } else {
+            console.log('Session set successfully:', data.session);
             setSession(data.session);
           }
         });
+    } else {
+      console.error('Supabase client is not initialized');
     }
   }
 
   function requestFreshToken() {
     const authOrigin = new URLSearchParams(window.location.search).get('arcgis-auth-origin');
+    console.log('Requesting fresh token from origin:', authOrigin);
     if (authOrigin) {
       window.parent.postMessage({ type: 'AUTH_REQUEST' }, authOrigin);
+      console.log('AUTH_REQUEST sent to parent');
+    } else {
+      console.error('No auth origin found for requesting fresh token');
     }
   }
 

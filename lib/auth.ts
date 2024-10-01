@@ -41,15 +41,21 @@ export function useAuth (setAuthDialog: (value: boolean) => void, setAuthView: (
   let recovery = false;
 
   useEffect(() => {
+    console.log('useAuth effect running');
     if (!supabase) {
       console.warn('Supabase is not initialized');
       return setSession({ user: { email: 'demo@e2b.dev' } } as Session);
     }
 
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('Initial session:', session);
       setSession(session);
       if (session) {
-        getUserAPIKey(session).then(setApiKey);
+        console.log('Getting API key for session');
+        getUserAPIKey(session).then(key => {
+          console.log('API key retrieved:', key);
+          setApiKey(key);
+        });
         posthog.identify(session?.user.id, { email: session?.user.email });
         posthog.capture('sign_in');
       }
@@ -58,6 +64,7 @@ export function useAuth (setAuthDialog: (value: boolean) => void, setAuthView: (
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
+      console.log('Auth state changed:', _event, session);
       setSession(session);
 
       if (_event === 'PASSWORD_RECOVERY') {
@@ -72,12 +79,19 @@ export function useAuth (setAuthDialog: (value: boolean) => void, setAuthView: (
 
       if (_event === 'SIGNED_IN' && !recovery) {
         setAuthDialog(false);
-        getUserAPIKey(session as Session).then(setApiKey);
-        posthog.identify(session?.user.id, { email: session?.user.email });
-        posthog.capture('sign_in');
+        if (session) {
+          console.log('Getting API key for new session');
+          getUserAPIKey(session).then(key => {
+            console.log('API key retrieved:', key);
+            setApiKey(key);
+          });
+          posthog.identify(session?.user.id, { email: session?.user.email });
+          posthog.capture('sign_in');
+        }
       }
 
       if (_event === 'SIGNED_OUT') {
+        console.log('User signed out');
         setApiKey(undefined);
         setAuthView('sign_in');
         posthog.capture('sign_out');
@@ -85,7 +99,10 @@ export function useAuth (setAuthDialog: (value: boolean) => void, setAuthView: (
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      console.log('Unsubscribing from auth state changes');
+      subscription.unsubscribe();
+    };
   }, []);
 
   return { session, apiKey, setSession };
