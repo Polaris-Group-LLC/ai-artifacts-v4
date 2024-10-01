@@ -253,7 +253,7 @@ export default function Home() {
         baseURLConfigurable={!process.env.NEXT_PUBLIC_NO_BASE_URL_INPUT}
       />
 
-      <div className="flex-1 flex space-x-8 w-full pt-36 pb-8 px-4">
+      <div className="flex-1 flex space-x-8 w-full pt-36 pb-8 px-4 bg-black">
         <Chat
           isLoading={isLoading}
           stop={stop}

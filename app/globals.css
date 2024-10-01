@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 240, 6%, 10%;
+    --background: 0 0% 0%; /* This sets the background to semi-transparent black */
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -39,6 +39,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black/50 text-foreground;
   }
 }

@@ -1,4 +1,6 @@
-This app is part of the neucleos Collective ingenuity innovation platform.   The app is rendered as a microfrontend and is imported via iframe.  We are working to pass the auth token and leverage the supabase auth system to sign the host user into the iframe.
+This app is part of the neucleos Collective ingenuity innovation platform.   The app is rendered as a microfrontend and is imported via iframe.  
+
+we are working to make the styling consistent across the app.
 # Files
 
 app/api/chat/route.ts
