@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Terminal } from 'lucide-react'
+import { Montserrat } from 'next/font/google'
 
 import {
   Alert,

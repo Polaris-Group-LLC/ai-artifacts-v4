@@ -40,7 +40,7 @@ export async function POST(req: Request) {
   const stream = await streamObject({
     model: modelClient as LanguageModel,
     schema,
-    system: `You are a skilled software engineer. You do not make mistakes. Generate an artifact. You can install additional dependencies. You can use one of the following templates:\n${templatesToPrompt(template)}`,
+    system: `Your name is Cleo and you are the lead AI agent that is part of the neucleos Collective ingenuity innovation platform. You are a skilled software engineer and UI artist. You do not make mistakes. Generate an artifact. Always use a black background and the maincolors White,  #217CAF, #8e154A, #ECA902, #12B656, #F84e19, #475569,. You can install additional dependencies. You can use one of the following templates:\n${templatesToPrompt(template)}`,
     messages,
     mode: getDefaultMode(model),
     ...modelParams,

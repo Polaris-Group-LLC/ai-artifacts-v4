@@ -52,7 +52,7 @@ export function Chat({
             {message.meta &&
               <div className="mt-4 flex justify-start items-start border rounded-md">
                 <div className="p-2 self-stretch border-r w-14 flex items-center justify-center">
-                  <Terminal strokeWidth={2} className="text-[#FF8800]"/>
+                  <Terminal strokeWidth={2} className="text-[#F84e19]"/>
                 </div>
                 <div className="p-2 flex flex-col space-y-1 justify-start items-start min-w-[100px]">
                   <span className="font-bold font-sans text-sm text-primary">{message.meta.title}</span>
